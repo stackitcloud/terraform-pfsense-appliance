@@ -28,16 +28,8 @@ resource "stackit_server" "pfsense_Server" {
   }
   availability_zone = var.zone
   machine_type      = var.flavor
-}
-
-resource "stackit_server_network_interface_attach" "nic-attachment-lan" {
-  project_id           = var.STACKIT_PROJECT_ID
-  server_id            = stackit_server.pfsense_Server.server_id
-  network_interface_id = stackit_network_interface.nic_lan.network_interface_id
-  depends_on           = [stackit_server_network_interface_attach.nic-attachment-wan]
-}
-resource "stackit_server_network_interface_attach" "nic-attachment-wan" {
-  project_id           = var.STACKIT_PROJECT_ID
-  server_id            = stackit_server.pfsense_Server.server_id
-  network_interface_id = stackit_network_interface.nic_wan.network_interface_id
+  network_interfaces = [
+    stackit_network_interface.nic_wan.network_interface_id,
+    stackit_network_interface.nic_lan.network_interface_id
+  ]
 }
