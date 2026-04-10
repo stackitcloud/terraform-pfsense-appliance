@@ -22,7 +22,7 @@ variable "zone" {
 variable "flavor" {
   type        = string
   description = ""
-  default     = "c1.2"
+  default     = "c3i.2"
 }
 
 # Local VPC Subnet to create Network
